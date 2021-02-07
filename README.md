@@ -88,7 +88,7 @@ make terraformdestroy
 By default, only HTTP traffic is allowed. There's additional option to SSH, tho.\
 P.S. It's better to have separate bastion server, but for simplifying purposes for this DevOps Test Task connection directrly to the EC2 instance is in use (as it has Public IP, provided by default subnet, which is in use for simplifying puproses as well).\
 To enable this option, the following should be done.
-- Before building AMI, update [variables.mk](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/main/variables.mk) as follows.\
+- Before building AMI, update [variables.mk](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/0bf60a9161abff6e7ed13f9859b2c0ebdb340ef2/variables.mk#L18-L20) as follows.\
 This will add a ssh key for your user to the server.
 ```
 webserver_ssh_acces_is_needed="yes"
