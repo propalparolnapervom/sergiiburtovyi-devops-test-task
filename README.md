@@ -6,12 +6,8 @@ _____________
 
 &nbsp;
 ## Requirements
-The following tools have to be installed to create the infrastructure.
-
-&nbsp;
-Only specified versions were used to test the IaaC.
-
-&nbsp;
+The following tools have to be installed to create the infrastructure.\
+Only specified versions were used to test the IaaC.\
 Thus, every specific version from below is hardcoded as *required*.
 
 | Tool | Version | Purpose of use |
@@ -24,6 +20,7 @@ Thus, every specific version from below is hardcoded as *required*.
 
 
 &nbsp;
+&nbsp;
 No need to install it, but worth to mention:
 | Tool | Version | Purpose of use |
 | ------ | ------ | ------ |
@@ -34,9 +31,7 @@ No need to install it, but worth to mention:
 &nbsp;
 ## Deploy WebServer into AWS
 ### 0. Sign in to your AWS account
-Correct AWS security credentials should be already present on your local PC.
-
-&nbsp;
+Correct AWS security credentials should be already present on your local PC.\
 For example, it could be one of:
 - temporary ones, presented via `assume-role`;
 - constant ones, configured via `aws configure`;
@@ -53,9 +48,8 @@ make ami
 ### 2. Create the infrastructure
 > Default values from `terraform/instances/webserver/terraform.tfvars` are in use. Update it if needed.
 
-Once the AMI was successfully built, we can use it to start EC2 instances for our infrastructure.
+Once the AMI was successfully built, we can use it to start EC2 instances for our infrastructure.\
 
-&nbsp;
 See the plan of infrasctructure creation.
 ```
 make terraformplan
@@ -66,7 +60,6 @@ Create the infrastructure itself.
 make terraformapply
 ```
 
-&nbsp;
 The output of the command above shows a DNS name you can now use to go to the WebServer. For example:
 ```
 ...
@@ -88,33 +81,32 @@ make terraformdestroy
 - By default, the access via HTTP (port 80) is the only one allowed;
 - Find appropriate steps in **How-To's** section if direct SSH access (port 22) is needed in addition.
 
+
 &nbsp;
 ## How-To's
 ### SSH to the server
-By default, only HTTP traffic is allowed. There's additional option to SSH, tho.
+By default, only HTTP traffic is allowed. There's additional option to SSH, tho.\
 
-&nbsp;
-P.S. It's better to have separate bastion server, but for simplifying purposes for this DevOps Test Task connection directrly to the EC2 instance is in use (as it has Public IP, provided by default subnet, which is in use for simplifying puproses as well).
+P.S. It's better to have separate bastion server, but for simplifying purposes for this DevOps Test Task connection directrly to the EC2 instance is in use (as it has Public IP, provided by default subnet, which is in use for simplifying puproses as well).\
 
-&nbsp;
-To enable this option, the following should be done.
+To enable this option, the following should be done.\
 
-&nbsp;
-1) Before building AMI, update `variables.mk` as follows:
+- 1) Before building AMI, update `variables.mk` as follows.\
+
+This will add a ssh key for your user to the server.
 ```
 webserver_ssh_acces_is_needed="yes"
 webserver_ssh_username="<some_user>"
 webserver_ssh_public_key="<public_part_of_ssh_key>"
 ```
-This will add ssh key for your user to the server.
 
+- 2) Before working with Terraform, update `terraform/instances/webserver/main.tf` as follows.\
 
-&nbsp;
-2) Before working with Terraform, update `terraform/instances/webserver/main.tf` as follows:
+This will open port 22 in the SecurityGroup, applied to the server.
 ```
 enable_ssh_access_in_sg  = [1]
 ```
-This will open port 22 in the SecurityGroup, applied to the server.
+
 
 &nbsp;
 ## TO-DO
