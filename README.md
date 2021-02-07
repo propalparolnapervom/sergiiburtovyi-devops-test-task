@@ -18,9 +18,6 @@ Thus, every specific version from below is hardcoded as *required*.
 | [Make](https://www.gnu.org/software/make/) | 3.81+ | Automation tool, which is used to hide all complexity of working with IaaC.
 | [Git](https://git-scm.com/downloads) | 2.20.1+ | Repository for the IaaC.
 
-
-&nbsp;
-&nbsp;
 No need to install it, but worth to mention:
 | Tool | Version | Purpose of use |
 | ------ | ------ | ------ |
@@ -49,7 +46,6 @@ make ami
 > Default values from `terraform/instances/webserver/terraform.tfvars` are in use. Update it if needed.
 
 Once the AMI was successfully built, we can use it to start EC2 instances for our infrastructure.\
-
 See the plan of infrasctructure creation.
 ```
 make terraformplan
@@ -86,13 +82,9 @@ make terraformdestroy
 ## How-To's
 ### SSH to the server
 By default, only HTTP traffic is allowed. There's additional option to SSH, tho.\
-
 P.S. It's better to have separate bastion server, but for simplifying purposes for this DevOps Test Task connection directrly to the EC2 instance is in use (as it has Public IP, provided by default subnet, which is in use for simplifying puproses as well).\
-
 To enable this option, the following should be done.\
-
-- 1) Before building AMI, update `variables.mk` as follows.\
-
+- Before building AMI, update `variables.mk` as follows.\
 This will add a ssh key for your user to the server.
 ```
 webserver_ssh_acces_is_needed="yes"
@@ -100,8 +92,7 @@ webserver_ssh_username="<some_user>"
 webserver_ssh_public_key="<public_part_of_ssh_key>"
 ```
 
-- 2) Before working with Terraform, update `terraform/instances/webserver/main.tf` as follows.\
-
+- Before working with Terraform, update `terraform/instances/webserver/main.tf` as follows.\
 This will open port 22 in the SecurityGroup, applied to the server.
 ```
 enable_ssh_access_in_sg  = [1]
