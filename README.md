@@ -1,7 +1,11 @@
 # DevOps Test Task: Sergii Burtovyi
 &nbsp;
 ______________
-The task is to deploy a **Web Application** (LB + Web + DB) to **AWS** with help of **Ansible** and **Terraform**.
+#### The task
+To deploy a **Web Application** (LB + Web + DB) to **AWS** with help of **Ansible** and **Terraform**.
+
+#### The solution
+One of the possible solutions is to build AMI with all necessary software installed/configured and than use it to run EC2 instances required.
 _____________
 
 &nbsp;

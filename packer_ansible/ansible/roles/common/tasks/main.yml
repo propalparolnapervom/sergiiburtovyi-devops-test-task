@@ -1,11 +1,12 @@
 ---
-# Simplest attempt to get latest OS update during AMI creation
-- name: Check updates for OS packages
-  shell: apt update
-
-- name: Install OS updates
+# Simplest attempt to get latest OS update during AMI creation (no reboots if needed)
+- name: Install latest OS updates
   apt:
+    # Do not use the aptitude command, instead use the apt-get command 
+    force_apt_get: yes
+    # Run the equivalent of apt-get update command
     update_cache: yes
+    # Run the equivalent of ‘apt-get upgrade’ command (upgrade all packages to latest version)
     upgrade: dist
 
 
