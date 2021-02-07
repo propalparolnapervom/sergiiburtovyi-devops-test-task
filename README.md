@@ -39,7 +39,7 @@ For example, it could be one of:
 - constant ones, added manually to `~/.aws/credentials`.
 
 ### 1. Make a preparation
-> Default values from `variables.mk` are in use. Update it if needed.
+> Default values from [variables.mk](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/main/variables.mk) are in use. Update it if needed.
 
 Let's build the AMI with all necessary software installed and configured.
 ```
@@ -47,7 +47,7 @@ make ami
 ```
 
 ### 2. Create the infrastructure
-> Default values from `terraform/instances/webserver/terraform.tfvars` are in use. Update it if needed.
+> Default values from [terraform/instances/webserver/terraform.tfvars](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/main/terraform/instances/webserver/terraform.tfvars) are in use. Update it if needed.
 
 Once the AMI was successfully built, we can use it to start EC2 instances for our infrastructure.\
 See the plan of infrasctructure creation.
@@ -88,14 +88,14 @@ make terraformdestroy
 By default, only HTTP traffic is allowed. There's additional option to SSH, tho.\
 P.S. It's better to have separate bastion server, but for simplifying purposes for this DevOps Test Task connection directrly to the EC2 instance is in use (as it has Public IP, provided by default subnet, which is in use for simplifying puproses as well).\
 To enable this option, the following should be done.
-- Before building AMI, update `variables.mk` as follows.\
+- Before building AMI, update [variables.mk](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/main/variables.mk) as follows.\
 This will add a ssh key for your user to the server.
 ```
 webserver_ssh_acces_is_needed="yes"
 webserver_ssh_username="<some_user>"
 webserver_ssh_public_key="<public_part_of_ssh_key>"
 ```
-- Before working with Terraform, update `terraform/instances/webserver/main.tf` as follows.\
+- Before working with Terraform, update [terraform/instances/webserver/main.tf](https://github.com/propalparolnapervom/sergiiburtovyi-devops-test-task/blob/main/terraform/instances/webserver/main.tf#L16) as follows.\
 This will open port 22 in the SecurityGroup, applied to the server.
 ```
 enable_ssh_access_in_sg  = [1]
@@ -108,7 +108,7 @@ While this DevOps Test Task was made with the least effort needed to make it run
 - create custom VPC and subnets (as a minimum, default subnets provide servers with Public IP, which is not what you want when the principle of least privilege/access is in use. SecutiryGroup controlls all access, tho);
 - add DNS name, pointing to LB;
 - make it available via HTTPS by adding a certificates, terminating on LB;
-- make it available via HTTPS only, by redirecting a traffic from port 80 (if any) to port 443;
+- make it available via HTTPS only, by redirecting a traffic (if any) from port 80 to port 443;
 - add bastion to access EC2 instance via SSH;
 - place Web and DB part of the WebServer on separate EC2 instances;
 - put TF state file to some shared place (s3 bucket, for example);
