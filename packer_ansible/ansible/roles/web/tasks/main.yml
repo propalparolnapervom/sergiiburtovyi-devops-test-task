@@ -1,0 +1,16 @@
+---
+- name: Install a WebServer Apache
+  apt: 
+    name:
+      - apache2={{ apache_version }}
+      - php{{ php_major_version }}={{ php_full_version }}
+      - php{{ php_major_version }}-mysql={{ php_full_version }}
+    state: present
+    update_cache: yes
+    autoclean: yes
+
+- name: Start service for the WebServer Apache
+  service: 
+    name: apache2
+    state: started 
+    enabled: yes

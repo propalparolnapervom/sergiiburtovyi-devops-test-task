@@ -1,0 +1,12 @@
+service:
+  apache2:
+    enabled: true
+    running: true
+  mysql:
+    enabled: true
+    running: true
+process:
+  apache2:
+    running: true
+  mysqld:
+    running: true

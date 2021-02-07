@@ -1,0 +1,14 @@
+---
+- name: Install DB MySQL
+  apt: 
+    name: mysql-server={{ mysql_version }}
+    state: present
+    update_cache: yes
+    autoclean: yes
+
+- name: Start service for DB MySQL
+  service: 
+    name: mysql
+    state: started 
+    enabled: yes
+

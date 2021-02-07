@@ -1,0 +1,60 @@
+---
+- name: Manage groups
+  group:
+    name: "{{ item }}"
+  with_items:
+    - "{{ users.groups }}"
+
+- name: Add users
+  user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    comment: "{{ item.gecos | default(item.name) }}"
+    createhome: "{{ item.createhome | default('yes') }}"
+    remove: yes
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default([ ]) | join(',') | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    update_password: on_create
+  with_items:
+    - "{{ users.admins }}"
+
+- name: Add sudo content
+  lineinfile:
+    create: yes
+    mode: 0440
+    state: present
+    dest: /etc/sudoers.d/50_{{ item.name | regex_replace('\.','') }}
+    line: "{{ item.name }} ALL=(ALL) NOPASSWD: ALL"
+  with_items:
+     - "{{ users.admins }}"
+
+- name: Home directory permissions
+  file:
+    path: /home/{{ item.name }}
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0700
+    state: directory
+  with_items:
+    - "{{ users.admins }}"
+
+- name: Create .ssh directory
+  file:
+    path: /home/{{ item.name }}/.ssh
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0700
+    state: directory
+  with_items:
+    - "{{ users.admins }}"
+
+- name: Copy ssh keys
+  copy:
+    content: "{{ item.ssh_key }}"
+    dest: /home/{{ item.name }}/.ssh/authorized_keys
+    mode: 0400
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  with_items:
+    - "{{ users.admins }}"

@@ -1,0 +1,9 @@
+users:
+  groups:
+    - support
+  admins:
+    - name: "{{ webserver_ssh_username }}"
+      state: present
+      groups:
+        - support
+      ssh_key: "{{ webserver_ssh_public_key }}"

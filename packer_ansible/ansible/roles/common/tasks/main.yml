@@ -1,0 +1,15 @@
+---
+# Simplest attempt to get latest OS update during AMI creation
+- name: Check updates for OS packages
+  shell: apt update
+
+- name: Install OS updates
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+
+# If needed, add users to connect via SSH
+- name: Add admin users
+  include: serveradmins.yml
+  when: webserver_ssh_acces_is_needed == "yes"

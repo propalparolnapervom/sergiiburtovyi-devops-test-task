@@ -1,0 +1,43 @@
+{ 
+  "variables": {
+    "version": "{{isotime \"2006-01-02T15-04-05\"}}"
+},
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "{{user `region`}}",
+    "source_ami": "ami-0aef57767f5404a3c",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "{{user `server_type`}}-{{user `version`}}",
+    "tags": {
+      "purpose": "{{user `server_type`}}",
+      "managed_by": "sergiiburtovyi"
+    }
+  }],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/ansible.yml",
+      "extra_arguments": [
+        "--extra-vars", "role={{user `server_type`}} webserver_ssh_acces_is_needed={{user `webserver_ssh_acces_is_needed`}} webserver_ssh_username={{user `webserver_ssh_username`}} webserver_ssh_public_key={{user `webserver_ssh_public_key`}}"
+      ],
+      "groups": [
+        "{{user `server_type`}}"
+      ]
+    },
+    {
+      "type": "goss",
+      "version": "0.3.8",
+      "skipInstall": false,
+      "arch": "amd64",
+      "url":"https://github.com/aelsabbahy/goss/releases/download/v0.3.8/goss-linux-amd64",
+      "downloadPath": "/tmp/goss-linux-amd64",
+      "remote_folder": "/tmp",
+      "remote_path": "/tmp/goss",
+      "tests": [
+        "tests/{{user `server_type`}}/goss.yaml"
+      ],
+      "use_sudo": true
+    }
+  ]
+}
