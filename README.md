@@ -21,10 +21,10 @@ No need to install it, but worth to mention:
 | Tool | Version | Purpose of use |
 | ------ | ------ | ------ |
 | [Goss](https://github.com/aelsabbahy/goss) | Installed automatically by Packer on an instance, started from the AMI | Packer uses it as a provider, which makes necessary tests of installed/configured software during AMI creation: it can check that necessary processes are running, that it were configured as OS services, that necessary files are present and its permissions are correct, etc.
-&nbsp;
-&nbsp;
-&nbsp;
 
+
+&nbsp;
+&nbsp;
 ## Deploy WebServer into AWS
 ### 0. Sign in to your AWS account
 Correct AWS security credentials should be already present on your local PC.
