@@ -80,17 +80,6 @@ resource "aws_autoscaling_group" "webserver_asg" {
 #####################################
 data "template_file" "cloud_init_sh" {
   template = file("${path.module}/templates/cloud_init.sh")
-
-  # vars = {
-  #   environment = var.environment
-  #   # Dir, where Sensu customized configuration files
-  #   # are gonna be located on server 
-  #   # (for Checks, Handlers, etc)
-  #   CUSTOM_CONFIG_DIR="/etc/sensu/sensu_config_files/${var.environment}"
-  #   # Dir, where testing scripts are gonna be located on server
-  #   TESTING_SCRIPTS_DIR="/etc/sensu/testing_scripts"
-  # }
-
 }
 
 

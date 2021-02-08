@@ -2,10 +2,10 @@
 &nbsp;
 ______________
 #### The task
-To deploy a **Web Application** (LB + Web + DB) to **AWS** with help of **Ansible** and **Terraform**.
+To deploy a **Web Application** (LB + Web + Persistence Backend) to **AWS** with help of **Ansible** and **Terraform**.
 
 #### The solution
-One of the possible solutions is to build AMI with all necessary software installed/configured and than use it to run EC2 instances required.
+One of the possible solutions is to build AMI with all necessary software (for example, LAMP stack: Linux, Apache, MySQL, PHP) installed/configured and than use it to run EC2 instances required.
 _____________
 
 &nbsp;
