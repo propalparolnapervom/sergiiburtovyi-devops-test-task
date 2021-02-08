@@ -16,9 +16,9 @@ Thus, every specific version from below is hardcoded as *required*.
 
 | Tool | Version | Version hardcoded | Purpose of use |
 | ------ | ------ | ------ | ------ |
+| [Packer](https://learn.hashicorp.com/tutorials/packer/getting-started-install#installing-packer) | 1.5.6 | Y | Builds new AMI on top of basic one, customizing it with help of other specified tools.
 | [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) | 2.9.11 | Y | Packer uses it as a provider, which makes necessary configuration management during AMI creation: updates OS, installs LAMP stack, etc.
 | [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) | 0.14.5 | Y | Builds all necessary infrastructure in AWS, based on our new AMI: LoadBalancer, AutoScaling Group, Security Group, etc.
-| [Packer](https://learn.hashicorp.com/tutorials/packer/getting-started-install#installing-packer) | 1.5.6 | Y | Builds new AMI on top of basic one, customizing it with help of other specified tools.
 | [Goss Packer Provisioner](https://github.com/YaleUniversity/packer-provisioner-goss) | 0.3.0+ | N | Provider for the Packer, that allows to run [Goss](https://github.com/aelsabbahy/goss) tests on an AMI during its creation: are necessary processes running? were it configured as OS services? are necessary files present and its permissions are correct? etc.
 | [Make](https://www.gnu.org/software/make/) | 3.81+ | N | Automation tool, which is used to hide all complexity of working with IaaC.
 | [Git](https://git-scm.com/downloads) | 2.20.1+ | N | Repository for the IaaC.
